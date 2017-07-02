@@ -14,7 +14,7 @@ set of Unix commands to your path.
 2. Install the latest version of [z88dk](https://github.com/z88dk/z88dk) and the
 [ZEsarUX](https://sourceforge.net/projects/zesarux/) emulator.
 
-3. Download [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite/build/zxnext_sprite.zip)
+3. Download [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite/blob/master/build/zxnext_sprite.zip)
 and unpack it in a suitable place.
 
 4. Download the zxnext_sprite_demo repository either as a ZIP archive using the
