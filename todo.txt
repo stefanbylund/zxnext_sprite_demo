@@ -1,0 +1,1 @@
+* Replace int with uint16_t or uint8_t in zxnext_sprite_demo.c.
