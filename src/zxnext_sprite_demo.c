@@ -14,6 +14,7 @@
 #include "zxnext_sprite.h"
 
 #pragma output CRT_ORG_CODE = 32768
+#pragma output REGISTER_SP = 0
 #pragma output CLIB_MALLOC_HEAP_SIZE = 0
 #pragma output CLIB_STDIO_HEAP_SIZE = 0
 #pragma output CLIB_FOPEN_MAX = -1
@@ -116,9 +117,9 @@ static void update_sprites(void)
         sprite.x = 0;
         sprite.dx = -sprite.dx;
     }
-    else if (sprite.x >= 239)
+    else if (sprite.x >= 240)
     {
-        sprite.x = 239;
+        sprite.x = 240;
         sprite.dx = -sprite.dx;
     }
     if (sprite.y <= 0)
@@ -126,9 +127,9 @@ static void update_sprites(void)
         sprite.y = 0;
         sprite.dy = -sprite.dy;
     }
-    else if (sprite.y >= 175)
+    else if (sprite.y >= 176)
     {
-        sprite.y = 175;
+        sprite.y = 176;
         sprite.dy = -sprite.dy;
     }
 
