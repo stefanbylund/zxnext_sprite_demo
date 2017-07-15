@@ -7,13 +7,15 @@
 #include <arch/zx.h>
 #include <input.h>
 #include <z80.h>
+#include <intrinsic.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "zxnext_registers.h"
 #include "zxnext_sprite.h"
 
-#pragma output CRT_ORG_CODE = 32768
+#pragma output CRT_ORG_CODE = 0x8190
 #pragma output REGISTER_SP = 0
 #pragma output CLIB_MALLOC_HEAP_SIZE = 0
 #pragma output CLIB_STDIO_HEAP_SIZE = 0
@@ -24,6 +26,8 @@
  ******************************************************************************/
 
 static void init_hardware(void);
+
+static void init_isr(void);
 
 static void create_background(void);
 
@@ -38,10 +42,10 @@ static void clear_background(void);
  ******************************************************************************/
 
 typedef struct sprite_info {
-    int x;  // X coordinate in pixels
-    int y;  // Y coordinate in pixels
-    int dx; // Horizontal displacement in pixels
-    int dy; // Vertical displacement in pixels
+    uint8_t x; // X coordinate in pixels
+    uint8_t y; // Y coordinate in pixels
+    int8_t dx; // Horizontal displacement in pixels
+    int8_t dy; // Vertical displacement in pixels
 } sprite_info_t;
 
 /*******************************************************************************
@@ -90,6 +94,23 @@ static void init_hardware(void)
     z80_outp(REGISTER_VALUE_PORT, 1);
 }
 
+static void init_isr(void)
+{
+    // Set up IM2 interrupt service routine:
+    // Put Z80 in IM2 mode with a 257-byte interrupt vector table located
+    // at 0x8000 (before CRT_ORG_CODE) filled with 0x81 bytes. Install an
+    // empty interrupt service routine at the interrupt service routine
+    // entry at address 0x8181.
+
+    intrinsic_di();
+    im2_init((void *) 0x8000);
+    memset((void *) 0x8000, 0x81, 257);
+    z80_bpoke(0x8181, 0xFB);
+    z80_bpoke(0x8182, 0xED);
+    z80_bpoke(0x8183, 0x4D);
+    intrinsic_ei();
+}
+
 static void create_background(void)
 {
     zx_border(INK_YELLOW);
@@ -111,25 +132,13 @@ static void update_sprites(void)
     sprite.x += sprite.dx;
     sprite.y += sprite.dy;
 
-    // If sprite is outside the screen then clip its position and change direction.
-    if (sprite.x <= 0)
+    // If sprite is at the edge of the screen then change its direction.
+    if ((sprite.x == 0) || (sprite.x >= 240))
     {
-        sprite.x = 0;
         sprite.dx = -sprite.dx;
     }
-    else if (sprite.x >= 240)
+    if ((sprite.y == 0) || (sprite.y >= 176))
     {
-        sprite.x = 240;
-        sprite.dx = -sprite.dx;
-    }
-    if (sprite.y <= 0)
-    {
-        sprite.y = 0;
-        sprite.dy = -sprite.dy;
-    }
-    else if (sprite.y >= 176)
-    {
-        sprite.y = 176;
         sprite.dy = -sprite.dy;
     }
 
@@ -147,6 +156,7 @@ static void clear_background(void)
 int main(void)
 {
     init_hardware();
+    init_isr();
     create_background();
     create_sprites();
     set_sprite_system(true, false);
@@ -158,8 +168,8 @@ int main(void)
             break;
         }
 
-        // Wait a short while between each movement of the sprite.
-        z80_delay_ms(20);
+        // Wait for vertical blanking interval.
+        intrinsic_halt();
 
         update_sprites();
     }
