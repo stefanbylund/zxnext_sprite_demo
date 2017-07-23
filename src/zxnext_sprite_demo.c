@@ -159,7 +159,7 @@ int main(void)
     init_isr();
     create_background();
     create_sprites();
-    set_sprite_system(true, false);
+    set_sprite_system(true, false, LAYER_PRIORITIES_S_L_U);
 
     while (true)
     {
@@ -174,7 +174,7 @@ int main(void)
         update_sprites();
     }
 
-    set_sprite_system(false, false);
+    set_sprite_system(false, false, 0);
     clear_background();
     return 0;
 }
