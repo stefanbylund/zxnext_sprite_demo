@@ -15,7 +15,7 @@
 #include "zxnext_registers.h"
 #include "zxnext_sprite.h"
 
-#pragma output CRT_ORG_CODE = 0x8190
+#pragma output CRT_ORG_CODE = 0x8184
 #pragma output REGISTER_SP = 0
 #pragma output CLIB_MALLOC_HEAP_SIZE = 0
 #pragma output CLIB_STDIO_HEAP_SIZE = 0
