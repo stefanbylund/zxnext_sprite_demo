@@ -13,8 +13,7 @@ set of Unix commands to your path.
 
 2. Install the latest version of [z88dk](https://github.com/z88dk/z88dk) and the
 [ZEsarUX](https://sourceforge.net/projects/zesarux/) or
-[CSpect](https://dailly.blogspot.se/2017/07/new-cspect-zx-spectrum-next-emulator.html)
-emulator.
+[CSpect](https://dailly.blogspot.se/) emulator.
 
 3. Download [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite/blob/master/build/zxnext_sprite.zip)
 and unpack it in a suitable place.
