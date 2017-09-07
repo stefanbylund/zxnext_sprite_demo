@@ -2,6 +2,10 @@
  * Stefan Bylund 2017
  *
  * A simple sprite demo program for Sinclair ZX Spectrum Next.
+ *
+ * zcc +zx -vn -SO3 -startup=31 -clib=sdcc_iy --max-allocs-per-node200000
+ *   -L<zxnext_sprite>/lib/sdcc_iy -lzxnext_sprite -I<zxnext_sprite>/include
+ *   zxnext_sprite_demo.c -o zxnext_sprite_demo -create-app [-Cz"--sna"]
  ******************************************************************************/
 
 #include <arch/zx.h>
@@ -159,7 +163,7 @@ int main(void)
     init_isr();
     create_background();
     create_sprites();
-    set_sprite_system(true, false, LAYER_PRIORITIES_S_L_U);
+    set_sprite_layers_system(true, false, LAYER_PRIORITIES_S_L_U, false);
 
     while (true)
     {
@@ -174,7 +178,7 @@ int main(void)
         update_sprites();
     }
 
-    set_sprite_system(false, false, 0);
+    set_sprite_layers_system(false, false, 0, false);
     clear_background();
     return 0;
 }
