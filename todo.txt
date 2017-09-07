@@ -1,3 +1,5 @@
 * Switch to zxn target in z88dk when stable.
 
 * Create prebuilt snapshot build.
+
+* Add more tests.
