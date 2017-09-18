@@ -86,7 +86,7 @@ static void init_hardware(void)
 {
     uint8_t peripheral_2_settings;
 
-    // Put Z80 in 7 MHz turbo mode.
+    // Put Z80 in 14 MHz turbo mode.
 
     z80_outp(REGISTER_NUMBER_PORT, PERIPHERAL_2_REGISTER);
     peripheral_2_settings = z80_inp(REGISTER_VALUE_PORT);
@@ -95,7 +95,7 @@ static void init_hardware(void)
     z80_outp(REGISTER_VALUE_PORT, 0x80 | peripheral_2_settings);
 
     z80_outp(REGISTER_NUMBER_PORT, TURBO_MODE_REGISTER);
-    z80_outp(REGISTER_VALUE_PORT, 1);
+    z80_outp(REGISTER_VALUE_PORT, 2);
 }
 
 static void init_isr(void)
