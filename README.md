@@ -4,7 +4,25 @@ The **zxnext_sprite_demo** project contains a simple example program demonstrati
 how to use the [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite) C
 API for using the hardware sprites of the Sinclair ZX Spectrum Next.
 
-## How to Use
+## Download
+
+The latest version of this program can be downloaded [here](build/zxnext_sprite_demo.zip).
+This download contains the following binaries and resources:
+
+* zxnext_sprite_demo/zxnext_sprite_demo.tap
+* zxnext_sprite_demo/zxnext_sprite_demo.sna
+* zxnext_sprite_demo/zxnext_sprite_demo.c
+* zxnext_sprite_demo/readme.txt
+
+The included readme.txt file explains how to start the program.
+
+If you want to build the zxnext_sprite_demo program yourself, see the "How to Build"
+section below.
+
+## How to Build
+
+If you want to build the zxnext_sprite_demo program yourself, follow the steps
+below:
 
 1. On Windows, you need [MinGW](http://www.mingw.org/),
 [UnxUtils](https://sourceforge.net/projects/unxutils/) or
@@ -42,18 +60,19 @@ tools need to catch up with the latest specs, it is important to use the latest
 version of zxnext_sprite, z88dk and ZEsarUX or CSpect.
 
 **Tip:** If you don't care for makefiles or don't want to install
-MinGW/UnxUtils/Cygwin on Windows, it is quite easy to build zxnext_sprite_demo
-manually by extracting the z88dk command-line invocation in the Makefile.
+MinGW/UnxUtils/Cygwin on Windows, you can build zxnext_sprite_demo manually
+by using the z88dk command-line invocation located in the header of the
+zxnext_sprite_demo.c source file.
 
 **Tip:** To start the ZEsarUX emulator directly in Sinclair ZX Spectrum Next
 mode, start it with the following options:
 
-> zesarux --machine tbblue --enable-mmc --enable-divmmc-ports --mmc-file extras/media/disk_images/tbblue.mmc --quickexit
+> zesarux --machine tbblue --enable-mmc --enable-divmmc-ports --mmc-file tbblue.mmc --quickexit
 
 **Tip:** To start the CSpect emulator directly in Sinclair ZX Spectrum Next
 mode, start it with the following options:
 
-> CSpect -zxnext -s7 -mmc=<zxnext_sprite_demo_folder> zxnext_sprite_demo.sna
+> CSpect -zxnext -mmc=<zxnext_sprite_demo_folder> zxnext_sprite_demo.sna
 
 ## License
 

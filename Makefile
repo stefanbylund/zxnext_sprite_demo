@@ -9,6 +9,10 @@ MKDIR := mkdir -p
 
 RM := rm -rf
 
+CP := cp
+
+ZIP := zip -r -q
+
 ZXNEXT_SPRITE := ../zxnext_sprite
 
 ZXNEXT_SPRITE_INCLUDE := $(ZXNEXT_SPRITE)/include
@@ -59,5 +63,18 @@ debug_sdcc_ix: all_sdcc_ix
 
 debug_sdcc_iy: all_sdcc_iy
 
+distro:
+	$(MAKE) clean all
+	$(MAKE) all BUILD_SNA=true
+	$(RM) tmp
+	$(MKDIR) tmp/zxnext_sprite_demo
+	$(CP) bin/sdcc_iy/zxnext_sprite_demo.tap tmp/zxnext_sprite_demo
+	$(CP) bin/sdcc_iy/zxnext_sprite_demo.sna tmp/zxnext_sprite_demo
+	$(CP) src/zxnext_sprite_demo.c tmp/zxnext_sprite_demo
+	$(CP) readme.txt tmp/zxnext_sprite_demo
+	$(RM) build/zxnext_sprite_demo.zip
+	cd tmp; $(ZIP) ../build/zxnext_sprite_demo.zip zxnext_sprite_demo
+	$(RM) tmp
+
 clean:
-	$(RM) bin zcc_opt.def zcc_proj.lst src/*.lis
+	$(RM) bin tmp zcc_opt.def zcc_proj.lst src/*.lis
