@@ -2,7 +2,7 @@
 
 The **zxnext_sprite_demo** project contains a simple example program demonstrating
 how to use the [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite) C
-API for using the hardware sprites of the Sinclair ZX Spectrum Next.
+hardware sprite API for the Sinclair ZX Spectrum Next.
 
 ## Download
 
