@@ -6,7 +6,7 @@ hardware sprite API for the Sinclair ZX Spectrum Next.
 
 ## Download
 
-The latest version of this program can be downloaded [here](build/zxnext_sprite_demo.zip).
+The latest version of this program can be downloaded **[here](build/zxnext_sprite_demo.zip)**.
 This download contains the following binaries and resources:
 
 * zxnext_sprite_demo/zxnext_sprite_demo.tap
