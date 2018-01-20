@@ -3,12 +3,12 @@
  *
  * A simple sprite demo program for Sinclair ZX Spectrum Next.
  *
- * zcc +zx [-subtype=sna] -vn -SO3 -startup=31 -clib=sdcc_iy
+ * zcc +zxn [-subtype=sna] -vn -SO3 -startup=31 -clib=sdcc_iy
  *   --max-allocs-per-node200000 -L<zxnext_sprite>/lib/sdcc_iy -lzxnext_sprite
  *   -I<zxnext_sprite>/include zxnext_sprite_demo.c -o zxnext_sprite_demo -create-app
  ******************************************************************************/
 
-#include <arch/zx.h>
+#include <arch/zxn.h>
 #include <input.h>
 #include <z80.h>
 #include <intrinsic.h>
