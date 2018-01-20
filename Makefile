@@ -32,7 +32,7 @@ BINDIR_SDCC_IX := bin/sdcc_ix
 BINDIR_SDCC_IY := bin/sdcc_iy
 
 ifeq ($(BUILD_SNA),true)
-SNA := -Cz"--sna"
+SNA := -subtype=sna
 endif
 
 DEBUGFLAGS := --list --c-code-in-asm
@@ -41,15 +41,15 @@ all: all_sccz80 all_sdcc_ix all_sdcc_iy
 
 all_sccz80:
 	$(MKDIR) $(BINDIR_SCCZ80)
-	zcc +zx -vn -O3 -startup=31 -clib=new -m $(DEBUG) -L$(ZXNEXT_SPRITE_LIB_SCCZ80) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SCCZ80)/zxnext_sprite_demo -create-app $(SNA)
+	zcc +zxn $(SNA) -vn -O3 -startup=31 -clib=new -m $(DEBUG) -L$(ZXNEXT_SPRITE_LIB_SCCZ80) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SCCZ80)/zxnext_sprite_demo -create-app
 
 all_sdcc_ix:
 	$(MKDIR) $(BINDIR_SDCC_IX)
-	zcc +zx -vn -SO3 -startup=31 -clib=sdcc_ix -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IX) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IX)/zxnext_sprite_demo -create-app $(SNA)
+	zcc +zxn $(SNA) -vn -SO3 -startup=31 -clib=sdcc_ix -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IX) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IX)/zxnext_sprite_demo -create-app
 
 all_sdcc_iy:
 	$(MKDIR) $(BINDIR_SDCC_IY)
-	zcc +zx -vn -SO3 -startup=31 -clib=sdcc_iy -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IY) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IY)/zxnext_sprite_demo -create-app $(SNA)
+	zcc +zxn $(SNA) -vn -SO3 -startup=31 -clib=sdcc_iy -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IY) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IY)/zxnext_sprite_demo -create-app
 
 debug_sccz80: DEBUG = $(DEBUGFLAGS)
 
