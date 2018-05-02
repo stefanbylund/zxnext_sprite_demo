@@ -16,7 +16,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "zxnext_registers.h"
 #include "zxnext_sprite.h"
 
 #pragma output CRT_ORG_CODE = 0x8184
@@ -24,6 +23,16 @@
 #pragma output CLIB_MALLOC_HEAP_SIZE = 0
 #pragma output CLIB_STDIO_HEAP_SIZE = 0
 #pragma output CLIB_FOPEN_MAX = -1
+
+/*
+ * Define IDE_FRIENDLY in your C IDE to disable Z88DK C extensions and avoid
+ * parser errors/warnings in the IDE. Do NOT define IDE_FRIENDLY when compiling
+ * the code with Z88DK.
+ */
+#ifdef IDE_FRIENDLY
+#define __z88dk_fastcall
+#define __preserves_regs(...)
+#endif
 
 /*******************************************************************************
  * Function Prototypes
@@ -84,18 +93,9 @@ static sprite_info_t sprite = {120, 88, 1, 1};
 
 static void init_hardware(void)
 {
-    uint8_t peripheral_2_settings;
-
     // Put Z80 in 14 MHz turbo mode.
-
-    z80_outp(REGISTER_NUMBER_PORT, PERIPHERAL_2_REGISTER);
-    peripheral_2_settings = z80_inp(REGISTER_VALUE_PORT);
-
-    z80_outp(REGISTER_NUMBER_PORT, PERIPHERAL_2_REGISTER);
-    z80_outp(REGISTER_VALUE_PORT, 0x80 | peripheral_2_settings);
-
-    z80_outp(REGISTER_NUMBER_PORT, TURBO_MODE_REGISTER);
-    z80_outp(REGISTER_VALUE_PORT, 2);
+    ZXN_NEXTREGA(REG_PERIPHERAL_2, ZXN_READ_REG(REG_PERIPHERAL_2) | RP2_ENABLE_TURBO);
+    ZXN_NEXTREG(REG_TURBO_MODE, RTM_14MHZ);
 }
 
 static void init_isr(void)
