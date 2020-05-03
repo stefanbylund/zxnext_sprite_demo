@@ -31,25 +31,21 @@ BINDIR_SDCC_IX := bin/sdcc_ix
 
 BINDIR_SDCC_IY := bin/sdcc_iy
 
-ifeq ($(BUILD_SNA),true)
-SNA := -subtype=sna
-endif
-
 DEBUGFLAGS := --list --c-code-in-asm
 
 all: all_sccz80 all_sdcc_ix all_sdcc_iy
 
 all_sccz80:
 	$(MKDIR) $(BINDIR_SCCZ80)
-	zcc +zxn $(SNA) -vn -O3 -startup=31 -clib=new -m $(DEBUG) -L$(ZXNEXT_SPRITE_LIB_SCCZ80) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SCCZ80)/zxnext_sprite_demo -create-app
+	zcc +zxn -subtype=nex -vn -O3 -startup=31 -clib=new -m $(DEBUG) -L$(ZXNEXT_SPRITE_LIB_SCCZ80) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SCCZ80)/zxnext_sprite_demo -create-app
 
 all_sdcc_ix:
 	$(MKDIR) $(BINDIR_SDCC_IX)
-	zcc +zxn $(SNA) -vn -SO3 -startup=31 -clib=sdcc_ix -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IX) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IX)/zxnext_sprite_demo -create-app
+	zcc +zxn -subtype=nex -vn -SO3 -startup=31 -clib=sdcc_ix -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IX) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IX)/zxnext_sprite_demo -create-app
 
 all_sdcc_iy:
 	$(MKDIR) $(BINDIR_SDCC_IY)
-	zcc +zxn $(SNA) -vn -SO3 -startup=31 -clib=sdcc_iy -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IY) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IY)/zxnext_sprite_demo -create-app
+	zcc +zxn -subtype=nex -vn -SO3 -startup=31 -clib=sdcc_iy -m $(DEBUG) --max-allocs-per-node200000 -L$(ZXNEXT_SPRITE_LIB_SDCC_IY) -lzxnext_sprite -I$(ZXNEXT_SPRITE_INCLUDE) $(SRCS) -o $(BINDIR_SDCC_IY)/zxnext_sprite_demo -create-app
 
 debug_sccz80: DEBUG = $(DEBUGFLAGS)
 
@@ -65,11 +61,10 @@ debug_sdcc_iy: all_sdcc_iy
 
 distro:
 	$(MAKE) clean all
-	$(MAKE) all BUILD_SNA=true
+	$(MAKE) all
 	$(RM) tmp
 	$(MKDIR) tmp/zxnext_sprite_demo
-	$(CP) bin/sdcc_iy/zxnext_sprite_demo.tap tmp/zxnext_sprite_demo
-	$(CP) bin/sdcc_iy/zxnext_sprite_demo.sna tmp/zxnext_sprite_demo
+	$(CP) bin/sdcc_iy/zxnext_sprite_demo.nex tmp/zxnext_sprite_demo
 	$(CP) src/zxnext_sprite_demo.c tmp/zxnext_sprite_demo
 	$(CP) readme.txt tmp/zxnext_sprite_demo
 	$(RM) build/zxnext_sprite_demo.zip

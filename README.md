@@ -4,13 +4,15 @@ The **zxnext_sprite_demo** project contains a simple example program demonstrati
 how to use the [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite) C
 hardware sprite API for the Sinclair ZX Spectrum Next.
 
+**Note:** This demo still works but is a bit out-of-date. It will be updated
+someday when I have the time ;)
+
 ## Download
 
 The latest version of this program can be downloaded **[here](build/zxnext_sprite_demo.zip)**.
 This download contains the following binaries and resources:
 
-* zxnext_sprite_demo/zxnext_sprite_demo.tap
-* zxnext_sprite_demo/zxnext_sprite_demo.sna
+* zxnext_sprite_demo/zxnext_sprite_demo.nex
 * zxnext_sprite_demo/zxnext_sprite_demo.c
 * zxnext_sprite_demo/readme.txt
 
@@ -30,7 +32,7 @@ below:
 set of Unix commands to your path.
 
 2. Install the latest version of [z88dk](https://github.com/z88dk/z88dk) and the
-[ZEsarUX](https://sourceforge.net/projects/zesarux/) or
+[ZEsarUX](https://github.com/chernandezba/zesarux) or
 [CSpect](https://dailly.blogspot.se/) emulator.
 
 3. Download [zxnext_sprite](https://github.com/stefanbylund/zxnext_sprite/blob/master/build/zxnext_sprite.zip)
@@ -46,18 +48,12 @@ following command:
 a common parent directory.
 
 6. Go to the zxnext_sprite_demo directory and enter the following command to
-build a TAP file or an SNA file if BUILD_SNA=true is specified:
+build a NEX file:
 
-> make all [BUILD_SNA=true]
+> make all
 
-7. Run the zxnext_sprite_demo/bin/\<compiler-flavour\>/zxnext_sprite_demo.tap
-file in the ZEsarUX emulator or the
-zxnext_sprite_demo/bin/\<compiler-flavour\>/zxnext_sprite_demo.sna file in the
-CSpect emulator.
-
-**Note:** Since the Sinclair ZX Spectrum Next is still under development and all
-tools need to catch up with the latest specs, it is important to use the latest
-version of zxnext_sprite, z88dk and ZEsarUX or CSpect.
+7. Run the zxnext_sprite_demo/bin/\<compiler-flavour\>/zxnext_sprite_demo.nex
+file in the ZEsarUX or CSpect emulator.
 
 **Tip:** If you don't care for makefiles or don't want to install
 MinGW/UnxUtils/Cygwin on Windows, you can build zxnext_sprite_demo manually
@@ -67,12 +63,14 @@ zxnext_sprite_demo.c source file.
 **Tip:** To start the ZEsarUX emulator directly in Sinclair ZX Spectrum Next
 mode, start it with the following options:
 
-> zesarux --machine tbblue --enable-mmc --enable-divmmc-ports --mmc-file tbblue.mmc --quickexit
+> zesarux --noconfigfile --machine tbblue --enabletimexvideo --tbblue-fast-boot-mode
+  --quickexit --enable-esxdos-handler --esxdos-root-dir <zxnext_sprite_demo_folder>
+  zxnext_sprite_demo.nex
 
 **Tip:** To start the CSpect emulator directly in Sinclair ZX Spectrum Next
 mode, start it with the following options:
 
-> CSpect -zxnext -mmc=<zxnext_sprite_demo_folder> zxnext_sprite_demo.sna
+> CSpect -w2 -tv -zxnext -mmc=<zxnext_sprite_demo_folder>/ zxnext_sprite_demo.nex
 
 ## License
 

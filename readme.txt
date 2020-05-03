@@ -16,9 +16,9 @@ Run in CSpect emulator
 
 2. Install the latest version of the CSpect emulator from https://dailly.blogspot.se/.
 
-3. Run the zxnext_sprite_demo.sna file in the CSpect emulator:
+3. Run the zxnext_sprite_demo.nex file in the CSpect emulator:
 
-> CSpect.exe -zxnext -mmc=<zxnext_sprite_demo>/ <zxnext_sprite_demo>/zxnext_sprite_demo.sna
+> CSpect.exe -w2 -tv -zxnext -mmc=<zxnext_sprite_demo>/ <zxnext_sprite_demo>/zxnext_sprite_demo.nex
 
 Note that the -mmc path must end with a / or \ character!
 
@@ -30,7 +30,8 @@ Run in ZEsarUX emulator
 
 2. Install the latest version of the ZEsarUX emulator from https://sourceforge.net/projects/zesarux/.
 
-3. Run the zxnext_sprite_demo.tap file in the ZEsarUX emulator:
+3. Run the zxnext_sprite_demo.nex file in the ZEsarUX emulator:
 
-> zesarux.exe --machine tbblue --enable-mmc --enable-divmmc-ports --mmc-file tbblue.mmc
-  --quickexit --tape <zxnext_sprite_demo>/zxnext_sprite_demo.tap
+> zesarux.exe --noconfigfile --machine tbblue --enabletimexvideo --tbblue-fast-boot-mode
+  --quickexit --enable-esxdos-handler --esxdos-root-dir <zxnext_sprite_demo>
+  <zxnext_sprite_demo>/zxnext_sprite_demo.nex

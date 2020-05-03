@@ -3,7 +3,7 @@
  *
  * A simple sprite demo program for Sinclair ZX Spectrum Next.
  *
- * zcc +zxn [-subtype=sna] -vn -SO3 -startup=31 -clib=sdcc_iy
+ * zcc +zxn -subtype=nex -vn -SO3 -startup=31 -clib=sdcc_iy
  *   --max-allocs-per-node200000 -L<zxnext_sprite>/lib/sdcc_iy -lzxnext_sprite
  *   -I<zxnext_sprite>/include zxnext_sprite_demo.c -o zxnext_sprite_demo -create-app
  ******************************************************************************/
@@ -48,8 +48,6 @@ static void create_sprites(void);
 
 static void update_sprites(void);
 
-static void clear_background(void);
-
 /*******************************************************************************
  * Type Definitions
  ******************************************************************************/
@@ -93,9 +91,11 @@ static sprite_info_t sprite = {120, 88, 1, 1};
 
 static void init_hardware(void)
 {
-    // Put Z80 in 14 MHz turbo mode.
-    ZXN_NEXTREGA(REG_PERIPHERAL_2, ZXN_READ_REG(REG_PERIPHERAL_2) | RP2_ENABLE_TURBO);
-    ZXN_NEXTREG(REG_TURBO_MODE, RTM_14MHZ);
+    // Put Z80 in 28 MHz turbo mode.
+    ZXN_NEXTREG(REG_TURBO_MODE, 0x03);
+
+    // Disable RAM memory contention.
+    ZXN_NEXTREGA(REG_PERIPHERAL_3, ZXN_READ_REG(REG_PERIPHERAL_3) | RP3_DISABLE_CONTENTION);
 }
 
 static void init_isr(void)
@@ -151,12 +151,6 @@ static void update_sprites(void)
     set_sprite_attributes_ext(0, sprite.x, sprite.y, 0, 0, true);
 }
 
-static void clear_background(void)
-{
-    zx_border(INK_WHITE);
-    zx_cls(INK_BLACK | PAPER_WHITE);
-}
-
 int main(void)
 {
     init_hardware();
@@ -178,7 +172,7 @@ int main(void)
         update_sprites();
     }
 
-    set_sprite_layers_system(false, false, 0, false);
-    clear_background();
+    // Trig a soft reset. The Next hardware registers and I/O ports will be reset by NextZXOS after a soft reset.
+    ZXN_NEXTREG(REG_RESET, RR_SOFT_RESET);
     return 0;
 }
